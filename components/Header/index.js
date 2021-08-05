@@ -9,7 +9,12 @@ export function Header() {
         <div className={styles.container}>
             <div className={styles.contentContainer}>
                 <Link href='/'>
-                    <Image className={styles.logo} src='/images/logo.png' width={120} height={120} />
+                    <Image 
+                        className={styles.logo} 
+                        src='/images/logo.png' 
+                        width={120}
+                        height={120}
+                    />
                 </Link>
             </div>
         </div>

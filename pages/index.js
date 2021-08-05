@@ -45,7 +45,7 @@ export default function Home({ posts }) {
         {
           formattedPosts.map((item) => {
             return (
-              <Link href={`/post/id`} key={item.id}>
+              <Link href={`/posts/${item.id}`} key={item.id}>
                 <a
                   className={styles.postContainer}
                 >
@@ -78,12 +78,9 @@ export const getStaticProps = async () => {
     [Prismic.predicates.at('document.type', 'post')],
   );
 
-  console.log(postsResponse)
-
   const posts = postsResponse.results.map((item) => {
-    console.log(item.data);
     return {
-      id: item.id,
+      id: item.uid,
       title: {
         'esp': RichText.asText(item.data.esp_title),
         'eng': RichText.asText(item.data.eng_title),
