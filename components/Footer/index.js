@@ -6,6 +6,7 @@ export function Footer() {
 
     async function changeLanguage(lang) {
         await localStorage.setItem('@MyTrip:lang', lang);
+        window.location.reload();
     }
 
     return (
