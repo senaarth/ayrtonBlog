@@ -1,0 +1,42 @@
+.container {
+    height: 8rem;
+    display: flex;
+    padding: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    background-color: #032122;
+}
+
+.contentContainer {
+    height: 100%;
+    width: 100%;
+    max-width: 1120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.logo {
+    height: 7.5rem;
+    resize: contain;
+}
+
+.logo:hover {
+    cursor: pointer;
+}
+
+.navItem { 
+    color: #B9B16B;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.8px;
+    opacity: .8;
+
+    transition: filter 0.3s;
+}
+
+.navItem:hover {
+    filter: brightness(0.8);
+}

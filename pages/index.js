@@ -13,9 +13,8 @@ export default function Home() {
       }}
     >
       <Head>
-        <title>Blog do Ayrton</title>
+        <title>MyTrip Blog</title>
       </Head>
-      <h1>BLOG DO AYRTON</h1>
     </div>
   )
 }
