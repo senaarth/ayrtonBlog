@@ -6,14 +6,14 @@ import styles from './header.module.css';
 
 export function Header() {
     return (
-        <div className={styles.container}>
-            <div className={styles.contentContainer}>
+        <div className={styles.container} style={{ height: 120 }}>
+            <div className={styles.contentContainer} style={{ height: 120 }}>
                 <Link href='/'>
                     <Image 
                         className={styles.logo} 
-                        src='/images/logo.png' 
-                        width={120}
-                        height={120}
+                        src='/images/traveler.png' 
+                        width={70}
+                        height={80}
                     />
                 </Link>
             </div>
