@@ -7,6 +7,8 @@ import { getPrismicClient } from '../../services/prismic';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
+import { Banner } from '../../components/Banner';
+
 import styles from './post.module.css';
 
 export default function Post({ post }) {
@@ -21,7 +23,7 @@ export default function Post({ post }) {
         locale: ptBR,
       }
     ) : null,
-  })
+  });
 
   React.useEffect(() => {
     const language = localStorage.getItem('@MyTrip:lang');
@@ -49,15 +51,23 @@ export default function Post({ post }) {
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
+            marginBottom: '1rem',
           }}
         >
           <FiCalendar
             size={20}
             color='#A9AFB2'
           />
-          <p style={{ marginLeft: 8 }}>{formattedPost.createdAt}</p>
+          <p style={{ marginLeft: 8, marginBottom: 0 }}>{formattedPost.createdAt}</p>
         </div>
         <div dangerouslySetInnerHTML={{ __html: formattedPost?.data?.content[lang] }} />
+        {
+          post?.data?.slides && (
+            <Banner 
+              slidesSources={post.data.slides}
+            />
+          )
+        }
       </div>
     ) : (
       <div
@@ -97,6 +107,14 @@ export const getStaticProps = async ({ params }) => {
   const prismic = getPrismicClient();
   const response = await prismic.getByUID('post', params.slug, { ref: null });
 
+  let slides = [];
+
+  if (response?.data?.imagens?.length) {
+    slides = response.data.imagens.map((item) => {
+      return item.slide.url;
+    });
+  }
+
   const post = {
     uid: response?.uid ? response.uid : null,
     createdAt: response?.first_publication_date ? response?.first_publication_date : null,
@@ -108,7 +126,8 @@ export const getStaticProps = async ({ params }) => {
       content: {
         'eng': response?.data?.eng_content ? RichText.asHtml(response?.data?.eng_content) : null,
         'esp': response?.data?.esp_content ? RichText.asHtml(response?.data?.esp_content) : null,
-      }
+      },
+      slides,
     },
   }
 

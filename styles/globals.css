@@ -1,9 +1,7 @@
-html,
-body {
+html, body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -13,6 +11,8 @@ a {
 
 * {
   box-sizing: border-box;
+  outline: none !important;
+  text-decoration: none !important;
 }
 
 html, body, #__next {
@@ -21,4 +21,28 @@ html, body, #__next {
   height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+a.carousel-control-prev,
+a.carousel-control-next {
+  opacity: 1;
+  font-size: 0;
+}
+
+a.carousel-control-prev:hover,
+a.carousel-control-next:hover {
+  filter: none;
+  background-image: none;
+  opacity: 1;
+}
+
+a.carousel-control-prev span,
+a.carousel-control-next span {
+  /* background-color: black; */
+  transition: filter 0.3s;
+}
+
+a.carousel-control-prev span:hover,
+a.carousel-control-next span:hover {
+  filter: brightness(0.5);
 }

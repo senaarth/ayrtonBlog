@@ -25,13 +25,18 @@ export function Banner({
             slide={true}
         >
             {
-                slidesSources?.forEach((src) => {
+                slidesSources?.map((src) => {
                     return (
-                        <Carousel.Item>
+                        <Carousel.Item
+                            key={src}
+                        >
                             <Image
                                 src={src}
                                 layout='fill'
-                                className='d-block w-100'
+                                style={{
+                                    height: 100,
+                                    width: 100,
+                                }}
                             />
                         </Carousel.Item>
                     );
