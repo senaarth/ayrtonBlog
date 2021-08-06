@@ -23,6 +23,7 @@ export function Footer() {
                         color: '#B9B16B',
                         fontFamily: 'Open Sans, sans-serif',
                         marginLeft: 16,
+                        marginBottom: 0,
                     }}
                 >
                     |

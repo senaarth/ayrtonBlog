@@ -6,6 +6,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
 }
 
 .contentContainer {
@@ -21,6 +23,8 @@
     color: #B9B16B;
     font-family: 'Open Sans', sans-serif;
     cursor: pointer;
+    padding: 0;
+    margin: 0;
 
     transition: filter 0.3s;
 }
