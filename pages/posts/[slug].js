@@ -2,12 +2,11 @@ import React, { useState, useEffect } from 'react';
 import Prismic from '@prismicio/client';
 import { FiCalendar } from 'react-icons/fi';
 import { RichText } from 'prismic-dom';
+import Image from 'next/image';
 
 import { getPrismicClient } from '../../services/prismic';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-
-import { Banner } from '../../components/Banner';
 
 import styles from './post.module.css';
 
@@ -60,13 +59,26 @@ export default function Post({ post }) {
           />
           <p style={{ marginLeft: 8, marginBottom: 0 }}>{formattedPost.createdAt}</p>
         </div>
-        <div dangerouslySetInnerHTML={{ __html: formattedPost?.data?.content[lang] }} />
         {
-          post?.data?.slides && (
-            <Banner 
-              slidesSources={post.data.slides}
-            />
-          )
+          formattedPost?.data?.content?.map((item) => {
+            return (
+              <div
+                key={item.content[lang]}
+                className={styles.contentItemContainer}
+              >
+                <p>
+                  {item.content[lang]}
+                </p>
+                <div className={styles.contentItemImgContainer}>
+                  <Image
+                    src={item.img}
+                    layout="fill"
+                    className={styles.contentItemImg}
+                  />
+                </div>
+              </div>
+            );
+          })
         }
       </div>
     ) : (
@@ -107,11 +119,17 @@ export const getStaticProps = async ({ params }) => {
   const prismic = getPrismicClient();
   const response = await prismic.getByUID('post', params.slug, { ref: null });
 
-  let slides = [];
+  let contentParts = [];
 
-  if (response?.data?.imagens?.length) {
-    slides = response.data.imagens.map((item) => {
-      return item.slide.url;
+  if (response?.data?.content) {
+    contentParts = response.data.content.map((item) => {
+      return {
+        img: item?.imagem?.url,
+        content: {
+          'eng': RichText.asText(item?.eng_text),
+          'esp': RichText.asText(item?.esp_text),
+        }
+      }
     });
   }
 
@@ -123,11 +141,7 @@ export const getStaticProps = async ({ params }) => {
         'eng': response?.data?.eng_title ? RichText.asText(response?.data?.eng_title) : null,
         'esp': response?.data?.esp_title ? RichText.asText(response?.data?.esp_title) : null,
       },
-      content: {
-        'eng': response?.data?.eng_content ? RichText.asHtml(response?.data?.eng_content) : null,
-        'esp': response?.data?.esp_content ? RichText.asHtml(response?.data?.esp_content) : null,
-      },
-      slides,
+      content: contentParts,
     },
   }
 
