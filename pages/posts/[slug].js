@@ -66,16 +66,19 @@ export default function Post({ post }) {
                 key={item.content[lang]}
                 className={styles.contentItemContainer}
               >
-                <p>
-                  {item.content[lang]}
-                </p>
-                <div className={styles.contentItemImgContainer}>
-                  <Image
-                    src={item.img}
-                    layout="fill"
-                    className={styles.contentItemImg}
-                  />
-                </div>
+                <div dangerouslySetInnerHTML={{ __html: item.content[lang]}} />
+                {
+                  item.img && (
+                    <div className={styles.contentItemImgContainer}>
+                      <Image
+                        src={item.img}
+                        layout="fill"
+                        className={styles.contentItemImg}
+                        alt="Imagem meramente ilustrativa"
+                      />
+                    </div>
+                  )
+                }
               </div>
             );
           })
@@ -124,10 +127,10 @@ export const getStaticProps = async ({ params }) => {
   if (response?.data?.content) {
     contentParts = response.data.content.map((item) => {
       return {
-        img: item?.imagem?.url,
+        img: item?.imagem?.url ? item?.imagem?.url : "",
         content: {
-          'eng': RichText.asText(item?.eng_text),
-          'esp': RichText.asText(item?.esp_text),
+          'eng': RichText.asHtml(item?.eng_text),
+          'esp': RichText.asHtml(item?.esp_text),
         }
       }
     });
